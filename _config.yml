@@ -10,7 +10,7 @@ locale                   : "Chnia"
 title                    : "Donglin Zhou / Pursing Master Degree"
 title_separator          : "-"
 name                     : &name "Donglin Zhou"
-description              :  "I'm an incoming master degree student at ShenZhen University and am fortunate to be advised by Prof.Weike Pan. I obtained my B.E. from Shantou University. 
+description              : &description "I'm an incoming master degree student at ShenZhen University and am fortunate to be advised by Prof.Weike Pan. I obtained my B.E. from Shantou University. 
 My research is devoted to understand and predict human behavior by utilizing NLP technology and deep learning. My primary research interests center around NLP and Recommender Systems."
 url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://donglinzhou.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
