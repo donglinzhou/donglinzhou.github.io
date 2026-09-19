@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>周东霖 Donglin Zhou · Personal Homepage</title>
+  <meta name="description" content="周东霖（Donglin Zhou）的个人主页：推荐系统、大模型推荐、语义 ID、LLM 评测、论文与研究周记。">
+  <meta name="author" content="Donglin Zhou">
+  <meta property="og:title" content="周东霖 Donglin Zhou · Personal Homepage">
+  <meta property="og:description" content="Recommender systems, LLM-based recommendation, semantic item tokenization, and LLM evaluation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://donglinzhou.github.io/">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Donglin Zhou","alternateName":"周东霖","url":"https://donglinzhou.github.io/","image":"https://donglinzhou.github.io/assets/images/avatar.jpg","jobTitle":"Computer Science Researcher","affiliation":{"@type":"Organization","name":"Shenzhen University"},"sameAs":["https://github.com/donglinzhou","https://scholar.google.com/citations?user=QD35IOcAAAAJ&hl=zh-CN"],"researchInterest":["Recommender Systems","LLM-based Recommendation","Semantic ID","Sequential Recommendation","LLM Evaluation"]}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="/"><img src="/assets/favicon.svg" alt=""><span>Donglin Zhou</span></a>
+    <nav class="nav-links" aria-label="主导航"><a href="/" class="active">首页</a>
+<a href="/publications.html" class="">论文</a>
+<a href="/experience.html" class="">经历</a>
+<a href="/projects.html" class="">开源项目</a>
+<a href="/notes.html" class="">研究周记</a>
+<a href="/cv.html" class="">CV</a></nav>
+    <div class="nav-actions">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式">◐</button>
+      <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="打开菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-badge"><span class="pulse"></span> Shenzhen University · Recommender Systems & LLM Applications</div>
+      <h1>周东霖<span class="hero-name-cn">Donglin Zhou</span></h1>
+      <p class="lead">我关注大模型与推荐系统的结合，尤其是 <strong>LLM-based Recommendation、语义 ID / Item Tokenization、序列推荐、跨域推荐与大模型评测</strong>。研究和实习经历覆盖从方法设计、离线实验、工程落地到线上收益验证的完整链路。</p>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="/publications.html">查看论文</a>
+        <a class="btn" href="/notes/2026-09-19-semantic-id-llm-sequential-recommendation.html">阅读最新研究札记</a>
+        <a class="btn btn--ghost" href="/cv.html">打印版 CV</a>
+      </div>
+      <div class="inline-links">
+        <a href="https://github.com/donglinzhou">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=QD35IOcAAAAJ&hl=zh-CN">Google Scholar</a>
+        <a href="mailto:2300271010@email.szu.edu.cn">2300271010@email.szu.edu.cn</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>6</b><span>学术出版物</span></div>
+        <div class="stat"><b>3</b><span>CCF-A 论文经历</span></div>
+        <div class="stat"><b>34</b><span>Google Scholar 引用</span></div>
+        <div class="stat"><b>2</b><span>实习推全方案</span></div>
+      </div>
+    </div>
+    <aside class="card hero-panel">
+      <div class="avatar-wrap"><img src="/assets/images/avatar.jpg" alt="周东霖头像"><span class="avatar-note">Since 2020 on GitHub</span></div>
+      <div class="identity-card">
+        <strong>“establish oneself and pursue selflessness.”</strong>
+        <span>深圳大学 2026 届计算机科学与技术硕士；研究兴趣从情感感知推荐延伸到大模型语义表征与生成式推荐。</span>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section--tight">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">Research Themes</div><h2>我正在持续探索的问题</h2></div>
+    </div>
+    <div class="grid-3">
+      <article class="card research-card"><div class="research-icon">01</div><h3>大模型与推荐系统</h3><p>研究 LLM 语义先验如何补充传统 ID 推荐，在稀疏交互、冷启动和跨域迁移中提升泛化。</p><div class="tag-row"><span class="tag hot">LLM4Rec</span><span class="tag">Sequential Rec</span></div></article>
+      <article class="card research-card"><div class="research-icon">02</div><h3>语义 ID 与 Item Tokenization</h3><p>结合 RQ-VAE、LLM embedding、共现关系和地理约束，构建更适合推荐模型的商品/POI 离散表征。</p><div class="tag-row"><span class="tag hot">Semantic ID</span><span class="tag">Local Life</span></div></article>
+      <article class="card research-card"><div class="research-icon">03</div><h3>多模态与 ID-Content 对齐</h3><p>通过自监督表征学习对齐交互 ID、文本、图像和内容编码器，让协同信号与语义知识相互迁移。</p><div class="tag-row"><span class="tag">Multi-modal</span><span class="tag">Contrastive</span></div></article>
+      <article class="card research-card"><div class="research-icon">04</div><h3>跨域序列推荐</h3><p>利用文本语义和对比学习连接不同域的用户行为序列，提升目标域推荐效果。</p><div class="tag-row"><span class="tag">Cross-domain</span><span class="tag">Transformer</span></div></article>
+      <article class="card research-card"><div class="research-icon">05</div><h3>大模型评测与人类对齐</h3><p>构建层次化任务树、多维评价标准和自动评测流程，分析 GPT-4 等模型作为裁判的可靠性边界。</p><div class="tag-row"><span class="tag">LLM Eval</span><span class="tag">Alignment</span></div></article>
+      <article class="card research-card"><div class="research-icon">06</div><h3>后训练与推理强化</h3><p>实践 SFT、QLoRA、DPO、GRPO 与 RLVR，理解从指令遵循到可验证推理能力提升的训练路径。</p><div class="tag-row"><span class="tag">SFT</span><span class="tag">DPO</span><span class="tag">GRPO</span></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-2" style="align-items:start">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2>从情感序列推荐，到 LLM 语义推荐</h2>
+      <p class="lede" style="margin-top:18px">我的研究起点是用户评论中的情感信号与序列推荐；硕士阶段进一步研究跨域推荐、自监督多模态表征和 ID-Content 对齐。随着大模型在推荐场景中的应用，我开始关注如何把 LLM 的语义先验转化为推荐系统可学习、可检索、可在线使用的商品表征。</p>
+      <p class="lede">在快手本地生活推荐实习中，我参与了商品与 POI 侧语义 ID、精排模型迭代和用户行为序列建模，两个方案完成推全并取得线上收益。在腾讯 TEG 实习中，我参与混元大模型评测体系和自动化评测，积累了 LLM 评价、部署和横向比较经验。</p>
+      <a class="btn" href="/experience.html">查看完整经历</a>
+    </div>
+    <aside class="card updates">
+      <h3>最新动态</h3>
+      <div class="update-item"><div class="update-date">2026-09-19</div><p>个人主页上线，并开始发布每周论文解读与研究札记。</p></div>
+      <div class="update-item"><div class="update-date">2026-07</div><p>一作论文 <strong>LLM-based Semantic and ID Representations for Sequential Recommendation</strong> 发表于 SIGIR 2026。</p></div>
+      <div class="update-item"><div class="update-date">2026-03</div><p>合作论文 <strong>LLM-Aligned Geographic Item Tokenization</strong> 发表于 AAAI 2026。</p></div>
+      <div class="update-item"><div class="update-date">2025-08</div><p>共同一作论文发表于 KDD 2025。</p></div>
+      <div class="update-item"><div class="update-date">2025-11</div><p>结束快手商业化算法部实习，参与的两个精排优化方案均推全。</p></div>
+    </aside>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>© <span data-year>2026</span> Donglin Zhou · Built with static HTML/CSS</div>
+    <div><a href="https://github.com/donglinzhou">GitHub</a> · <a href="https://scholar.google.com/citations?user=QD35IOcAAAAJ&hl=zh-CN">Google Scholar</a> · <a href="mailto:2300271010@email.szu.edu.cn">Email</a></div>
+  </div>
+</footer>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

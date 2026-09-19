@@ -1,2 +1,5 @@
-_site/
-
+.DS_Store
+.cache/
+.cache_repos.json
+node_modules/
+vendor/

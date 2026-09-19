@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>周东霖 Donglin Zhou · Personal Homepage</title>
+  <meta name="description" content="周东霖（Donglin Zhou）的个人主页：推荐系统、大模型推荐、语义 ID、LLM 评测、论文与研究周记。">
+  <meta name="author" content="Donglin Zhou">
+  <meta property="og:title" content="周东霖 Donglin Zhou · Personal Homepage">
+  <meta property="og:description" content="Recommender systems, LLM-based recommendation, semantic item tokenization, and LLM evaluation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://donglinzhou.github.io/">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Donglin Zhou","alternateName":"周东霖","url":"https://donglinzhou.github.io/","image":"https://donglinzhou.github.io/assets/images/avatar.jpg","jobTitle":"Computer Science Researcher","affiliation":{"@type":"Organization","name":"Shenzhen University"},"sameAs":["https://github.com/donglinzhou","https://scholar.google.com/citations?user=QD35IOcAAAAJ&hl=zh-CN"],"researchInterest":["Recommender Systems","LLM-based Recommendation","Semantic ID","Sequential Recommendation","LLM Evaluation"]}
+</script>
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="/"><img src="/assets/favicon.svg" alt=""><span>Donglin Zhou</span></a>
+    <nav class="nav-links" aria-label="主导航"><a href="/" class="">首页</a>
+<a href="/publications.html" class="active">论文</a>
+<a href="/experience.html" class="">经历</a>
+<a href="/projects.html" class="">开源项目</a>
+<a href="/notes.html" class="">研究周记</a>
+<a href="/cv.html" class="">CV</a></nav>
+    <div class="nav-actions">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换深色模式">◐</button>
+      <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-label="打开菜单">☰</button>
+    </div>
+  </div>
+</header>
+<main>
+<section class="page-hero"><div class="container">
+  <div class="eyebrow">Publications</div><h1>论文与研究成果</h1>
+  <p>论文信息根据 Google Scholar、Crossref 与简历核对；作者名加粗表示本人。引用次数为 Google Scholar 在 2026-09-19 的快照，后续会随学术数据库更新。</p>
+  <div class="filters" role="group" aria-label="论文筛选">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="recommendation">推荐系统</button>
+    <button class="filter-btn" data-filter="llm">大模型</button>
+    <button class="filter-btn" data-filter="first-author">一作</button>
+    <button class="filter-btn" data-filter="industry">工业落地</button>
+  </div>
+</div></section>
+<section class="section--tight"><div class="container"><div class="pub-list">
+<article class="card pub-card" data-pub-tags="recommendation llm first-author industry">
+  <div class="pub-year">2026</div>
+  <div>
+    <div><span class="venue-badge">SIGIR 2026 · CCF-A</span></div>
+    <h3>LLM-based Semantic and ID Representations for Sequential Recommendation</h3>
+    <div class="pub-authors"><strong>Donglin Zhou</strong>, Weike Pan, Zhong Ming</div>
+    <div class="pub-venue">Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR), pages 4403-4408</div>
+    <p class="pub-abstract">围绕 LLM 语义表征与传统 ID 表征的互补问题，使用 Gated Attention 与 MoE 机制联合建模两类信号，以提升序列推荐在稀疏和冷启动场景下的泛化能力。</p>
+    <div class="pub-meta">
+      <span class="citation-pill">Citations: 0 · Scholar, 2026-09-19</span>
+      <a class="link-pill" href="https://doi.org/10.1145/3805712.3809874">DOI</a>
+      <a class="link-pill" href="https://scholar.google.com/scholar?q=LLM-based+Semantic+and+ID+Representations+for+Sequential+Recommendation">Scholar Search</a>
+      <a class="link-pill" href="https://github.com/donglinzhou/SIDSRec">Code</a>
+    </div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;color:var(--muted)">BibTeX</summary><pre>@inproceedings{zhou2026llm,
+  title     = {LLM-based Semantic and ID Representations for Sequential Recommendation},
+  author    = {Zhou, Donglin and Pan, Weike and Ming, Zhong},
+  booktitle = {Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval},
+  pages     = {4403--4408},
+  year      = {2026},
+  doi       = {10.1145/3805712.3809874}
+}</pre></details>
+  </div>
+</article>
+<article class="card pub-card" data-pub-tags="recommendation llm industry">
+  <div class="pub-year">2026</div>
+  <div>
+    <div><span class="venue-badge">AAAI 2026 · CCF-A</span></div>
+    <h3>LLM-Aligned Geographic Item Tokenization for Local-Life Recommendation</h3>
+    <div class="pub-authors">Hao Jiang, Guoquan Wang, <strong>Donglin Zhou</strong>, Sheng Yu, Yang Zeng, Wencong Zeng, Kun Gai, Guorui Zhou</div>
+    <div class="pub-venue">Proceedings of the AAAI Conference on Artificial Intelligence, 40(17), pages 14928-14936</div>
+    <p class="pub-abstract">面向本地生活推荐中的地理位置约束、POI 冷启动和时空稀疏问题，构建与 LLM 语义空间对齐的地理化商品 Token 表示。</p>
+    <div class="pub-meta">
+      <span class="citation-pill">Citations: 7 · Scholar, 2026-09-19</span>
+      <a class="link-pill" href="https://doi.org/10.1609/aaai.v40i17.38514">DOI</a>
+      <a class="link-pill" href="https://scholar.google.com/scholar?q=LLM-Aligned+Geographic+Item+Tokenization+for+Local-Life+Recommendation">Scholar Search</a>
+      
+    </div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;color:var(--muted)">BibTeX</summary><pre>@inproceedings{jiang2026llm,
+  title     = {LLM-Aligned Geographic Item Tokenization for Local-Life Recommendation},
+  author    = {Jiang, Hao and Wang, Guoquan and Zhou, Donglin and Yu, Sheng and Zeng, Yang and Zeng, Wencong and Gai, Kun and Zhou, Guorui},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume    = {40},
+  number    = {17},
+  pages     = {14928--14936},
+  year      = {2026},
+  doi       = {10.1609/aaai.v40i17.38514}
+}</pre></details>
+  </div>
+</article>
+<article class="card pub-card" data-pub-tags="llm evaluation industry">
+  <div class="pub-year">2026</div>
+  <div>
+    <div><span class="venue-badge">ACM TIST · JCR Q1</span></div>
+    <h3>TencentLLMEval: A Hierarchical Evaluation of Real-World Capabilities for Human-Aligned LLMs</h3>
+    <div class="pub-authors">Shuyi Xie, Wenlin Yao, Yong Dai, Shaobo Wang, Zishan Xu, Fan Lin, <strong>Donglin Zhou</strong>, Lifeng Jin, Xinhua Feng, Pengzhi Wei, Yujie Lin, Zhichao Hu, Dong Yu, Zhengyou Zhang, Jing Nie, Yuhong Liu</div>
+    <div class="pub-venue">ACM Transactions on Intelligent Systems and Technology, 17(4), pages 1-22</div>
+    <p class="pub-abstract">构建面向人类对齐大模型的层次化真实能力评测体系，覆盖多领域任务、多维人类评估标准，并探索基于强模型的自动评测可靠性。</p>
+    <div class="pub-meta">
+      <span class="citation-pill">Citations: 10 · Scholar, 2026-09-19</span>
+      <a class="link-pill" href="https://doi.org/10.1145/3732784">DOI</a>
+      <a class="link-pill" href="https://scholar.google.com/scholar?q=TencentLLMEval:+A+Hierarchical+Evaluation+of+Real-World+Capabilities+for+Human-Aligned+LLMs">Scholar Search</a>
+      
+    </div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;color:var(--muted)">BibTeX</summary><pre>@article{xie2026tencent,
+  title   = {TencentLLMEval: A Hierarchical Evaluation of Real-World Capabilities for Human-Aligned LLMs},
+  author  = {Xie, Shuyi and Yao, Wenlin and Dai, Yong and Wang, Shaobo and Xu, Zishan and Lin, Fan and Zhou, Donglin and Jin, Lifeng and Feng, Xinhua and Wei, Pengzhi and Lin, Yujie and Hu, Zhichao and Yu, Dong and Zhang, Zhengyou and Nie, Jing and Liu, Yuhong},
+  journal = {ACM Transactions on Intelligent Systems and Technology},
+  volume  = {17},
+  number  = {4},
+  pages   = {1--22},
+  year    = {2026},
+  doi     = {10.1145/3732784}
+}</pre></details>
+  </div>
+</article>
+<article class="card pub-card" data-pub-tags="recommendation cross-domain co-first-author">
+  <div class="pub-year">2025</div>
+  <div>
+    <div><span class="venue-badge">KDD 2025 · CCF-A</span></div>
+    <h3>Contrastive Text-enhanced Transformer for Cross-Domain Sequential Recommendation</h3>
+    <div class="pub-authors"><strong>Donglin Zhou</strong>, Xinbei Cai, Weike Pan</div>
+    <div class="pub-venue">Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), pages 4110-4119</div>
+    <p class="pub-abstract">利用文本语义与 ID 协同信号，并通过对比学习增强跨域知识迁移，缓解目标域行为稀疏和序列推荐泛化不足。</p>
+    <div class="pub-meta">
+      <span class="citation-pill">Citations: 8 · Scholar, 2026-09-19</span>
+      <a class="link-pill" href="https://doi.org/10.1145/3711896.3736893">DOI</a>
+      <a class="link-pill" href="https://scholar.google.com/scholar?q=Contrastive+Text-enhanced+Transformer+for+Cross-Domain+Sequential+Recommendation">Scholar Search</a>
+      
+    </div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;color:var(--muted)">BibTeX</summary><pre>@inproceedings{zhou2025contrastive,
+  title     = {Contrastive Text-enhanced Transformer for Cross-Domain Sequential Recommendation},
+  author    = {Zhou, Donglin and Cai, Xinbei and Pan, Weike},
+  booktitle = {Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining},
+  pages     = {4110--4119},
+  year      = {2025},
+  doi       = {10.1145/3711896.3736893}
+}</pre></details>
+  </div>
+</article>
+<article class="card pub-card" data-pub-tags="recommendation self-supervised first-author">
+  <div class="pub-year">2025</div>
+  <div>
+    <div><span class="venue-badge">Frontiers of Computer Science</span></div>
+    <h3>Self-Supervised Representation Learning with ID-Content Modality Alignment for Sequential Recommendation</h3>
+    <div class="pub-authors"><strong>Donglin Zhou</strong>, Weike Pan, Zhong Ming</div>
+    <div class="pub-venue">Frontiers of Computer Science, 20(12) (online collection; Google Scholar lists 2025)</div>
+    <p class="pub-abstract">通过自监督学习对齐 ID、文本和图像等多模态内容表征，再进行序列偏好学习，使交互 ID 与内容语义能够相互补充。</p>
+    <div class="pub-meta">
+      <span class="citation-pill">Citations: 1 · Scholar, 2026-09-19</span>
+      <a class="link-pill" href="https://doi.org/10.1007/s11704-025-50269-4">DOI</a>
+      <a class="link-pill" href="https://scholar.google.com/scholar?q=Self-Supervised+Representation+Learning+with+ID-Content+Modality+Alignment+for+Sequential+Recommendation">Scholar Search</a>
+      <a class="link-pill" href="https://github.com/donglinzhou/SICSRec">Code</a>
+    </div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;color:var(--muted)">BibTeX</summary><pre>@article{zhou2025self,
+  title   = {Self-Supervised Representation Learning with ID-Content Modality Alignment for Sequential Recommendation},
+  author  = {Zhou, Donglin and Pan, Weike and Ming, Zhong},
+  journal = {Frontiers of Computer Science},
+  volume  = {20},
+  number  = {12},
+  year    = {2025},
+  doi     = {10.1007/s11704-025-50269-4}
+}</pre></details>
+  </div>
+</article>
+<article class="card pub-card" data-pub-tags="recommendation sentiment first-author">
+  <div class="pub-year">2023</div>
+  <div>
+    <div><span class="venue-badge">IJDSA 2023</span></div>
+    <h3>Attenuated Sentiment-aware Sequential Recommendation</h3>
+    <div class="pub-authors"><strong>Donglin Zhou</strong>, Zhihong Zhang, Yangxin Zheng, Zhenting Zou, Lin Zheng</div>
+    <div class="pub-venue">International Journal of Data Science and Analytics, 16(2), pages 271-283</div>
+    <p class="pub-abstract">将评论情感信号引入序列推荐，并考虑情感影响随时间衰减的特点，以刻画用户偏好的动态变化。</p>
+    <div class="pub-meta">
+      <span class="citation-pill">Citations: 8 · Scholar, 2026-09-19</span>
+      <a class="link-pill" href="https://doi.org/10.1007/s41060-022-00374-5">DOI</a>
+      <a class="link-pill" href="https://scholar.google.com/scholar?q=Attenuated+Sentiment-aware+Sequential+Recommendation">Scholar Search</a>
+      <a class="link-pill" href="https://github.com/donglinzhou/ASSR">Code</a>
+    </div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;color:var(--muted)">BibTeX</summary><pre>@article{zhou2023attenuated,
+  title   = {Attenuated Sentiment-aware Sequential Recommendation},
+  author  = {Zhou, Donglin and Zhang, Zhihong and Zheng, Yangxin and Zou, Zhenting and Zheng, Lin},
+  journal = {International Journal of Data Science and Analytics},
+  volume  = {16},
+  number  = {2},
+  pages   = {271--283},
+  year    = {2023},
+  doi     = {10.1007/s41060-022-00374-5}
+}</pre></details>
+  </div>
+</article></div></div></section>
+</main>
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>© <span data-year>2026</span> Donglin Zhou · Built with static HTML/CSS</div>
+    <div><a href="https://github.com/donglinzhou">GitHub</a> · <a href="https://scholar.google.com/citations?user=QD35IOcAAAAJ&hl=zh-CN">Google Scholar</a> · <a href="mailto:2300271010@email.szu.edu.cn">Email</a></div>
+  </div>
+</footer>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
