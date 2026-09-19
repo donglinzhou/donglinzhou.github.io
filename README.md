@@ -1,13 +1,15 @@
-# Donglin Zhou Personal Homepage
+# Donglin Zhou Academic Homepage
 
-Static academic homepage for https://donglinzhou.github.io/.
+Static site for https://donglinzhou.github.io/.
 
-## Update weekly notes
+- Academic pages use `assets/css/academic.css`.
+- Chinese research blog lives under `/blog/` and uses `assets/css/blog.css`.
+- No build step is required.
 
-1. Copy an existing note from `notes/2026-09-19-semantic-id-llm-sequential-recommendation.html`.
-2. Rename it with the new date and slug.
-3. Update title, date, tags and article body.
-4. Add a card to `notes.html`.
-5. Commit and push to the `master` branch; GitHub Pages serves files from the repository root.
+## Add a weekly note
 
-No build step or package manager is required.
+1. Copy `blog/article/semantic-id-llm-sequential-recommendation.html`.
+2. Rename the slug and edit title, date, category, tags and body.
+3. Add a card to `blog/index.html`.
+4. Add one row to `blog/archive.html` and relevant category/tag pages.
+5. Commit and push to `master`.
