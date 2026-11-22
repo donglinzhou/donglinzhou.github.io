@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Rethink 推荐算法的召回阶段：从双塔到突破内积</title>
+  <meta name="description" content="重新审视 DSSM 双塔召回的结构性优势与局限，并讨论复杂模型召回、可学习索引、生成式召回以及召回与排序目标对齐的演进方向。">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/assets/css/blog.css">
+</head>
+<body>
+  <header class="blog-masthead">
+    <div class="inner">
+      <div class="brand-row">
+        <div class="blog-logo">
+          <h1><a href="/blog/">RecSys &amp; LLM Frontier Notes</a></h1>
+          <p>记录推荐系统与大模型的论文解读、技术理解和研究思考</p>
+        </div>
+        <nav class="blog-nav">
+          <a href="/blog/">首页</a>
+          <a href="/blog/archive.html">历史归档</a>
+          <a href="/blog/category.html">文章分类</a>
+          <a href="/blog/tag.html">文章标签</a>
+          <a href="/">学术主页</a>
+        </nav>
+      </div>
+      <div class="announcement">每周更新：LLM4Rec、语义 ID、序列推荐、生成式推荐与大模型评测。</div>
+    </div>
+  </header>
+
+  <div class="article-shell">
+    <article class="article-card">
+      <h1>Rethink 推荐算法的召回阶段：从双塔到突破内积</h1>
+      <div class="post-meta">
+        <a href="/blog/category.html#recsys">推荐系统</a>
+        <span>|</span>
+        <span>2026-11-22</span>
+        <span>|</span>
+        <a class="tag" href="/blog/tag.html#retrieval-systems">Retrieval Systems</a>
+        <a class="tag gray" href="/blog/tag.html#two-tower">Two-Tower</a>
+        <a class="tag gray" href="/blog/tag.html#dssm">DSSM</a>
+      </div>
+
+      <div class="toc">
+        <h3>目录</h3>
+        <ol>
+          <li><a href="#part-1">DSSM 为什么能存在</a></li>
+          <li><a href="#part-2">双塔的结构性代价</a></li>
+          <li><a href="#part-3">突破内积到底在突破什么</a></li>
+          <li><a href="#part-4">未来为什么是多路召回生态</a></li>
+          <li><a href="#references">参考论文</a></li>
+        </ol>
+      </div>
+
+      <div class="article-body">
+        <blockquote>
+          <strong>一句话总结：</strong>突破内积不是否定内积，而是把它放回最合适的位置——用双塔承担大规模粗筛，把更复杂的用户—候选交互留给有边界的候选集合。
+        </blockquote>
+
+        <p>这篇文章想回答四个问题：DSSM/双塔为什么存在？它的结构性缺陷是什么？突破内积的设计方向是什么？未来的召回系统又会演化成什么样？</p>
+        <p>为了避免术语歧义，本文所说的 DSSM，主要指工业界常见的“用户塔 + 物品塔、最终以向量匹配完成召回”的 DSSM 式双塔模型。</p>
+
+        <h2 id="part-1">Part 1：DSSM 为什么能存在？</h2>
+        <p>工业界的推荐链路通常采用级联架构：“多路召回—粗排—精排—混排—重排”。一个用户请求到来后，会触发各类 u2i、i2i 以及模型召回，再进行过滤、去重，最终截断固定的 quota 交给下游。</p>
+        <p>DSSM 长期是主流的模型召回方式之一，因为它解决了一个非常现实的系统问题：<strong>如何在有限算力和延迟下，从海量候选中快速找到一批可能相关的物品。</strong></p>
+        <p>DSSM 的结构有几个非常优秀的特性：</p>
+        <ul>
+          <li><strong>物品编码与请求解耦。</strong>物品塔的计算不依赖当前请求，因此可以离线批量计算，并提前写入索引；每次请求到来时，只需要计算一次用户塔。</li>
+          <li><strong>物品向量可以复用。</strong>同一份物品表示不只服务一个用户，而是服务整个流量；索引也只需要围绕这批向量构建和维护。</li>
+          <li><strong>在线计算很轻。</strong>用户和物品最后只做一次内积或余弦相似度，链路短，延迟可控。</li>
+        </ul>
+        <p>简而言之，DSSM 的定位是快速从全库中筛出一批相关候选，而不是在完整上下文里精确刻画候选间的序关系。它输出的是候选集合；至于召回出的物品能否在后链路中排好、能否最终透出，DSSM 既不直接负责，也很难端到端建模。</p>
+
+        <h2 id="part-2">Part 2：双塔的缺点和不足是什么？</h2>
+        <p>DSSM 为了实现物品表示的预计算和索引复用，天然放弃了几类能力。</p>
+        <h3>问题一：用户与物品的交互发生得太晚，也太简单</h3>
+        <p>用户和物品的信息被分别压缩成两个向量，交互仅仅发生在最后一层内积，也很难使用 target attention 等更复杂的结构。即便提高向量维度或单塔复杂度，也无法改变这种最后一步交互（late interaction）的结构。</p>
+        <h3>问题二：索引和模型计算往往分属两套系统，更新不同步</h3>
+        <p>在常见部署中，用户塔、向量索引、过滤和后续打分被拆成多个服务，一次请求会产生 RPC、序列化和网络传输开销；用户塔、物品塔和索引的版本也未必同步。召回效果不好时，很难判断是打分模型不够强、索引质量不够，还是两者版本不一致。</p>
+        <h3>问题三：召回目标与后续排序目标并不完全一致</h3>
+        <p>召回通常优化点击、转化等代理目标，强调从全库中找相关候选；排序优化最终列表价值，依赖更丰富的特征、候选上下文和更精细的交互。两者采用的样本、特征和上下文并不对齐。召回概率高，不代表精排打分高；离线召回率强，也不代表候选能在下游链路中透出。</p>
+
+        <h2 id="part-3">Part 3：突破内积做的是什么？</h2>
+        <p>召回算法应该往哪里迭代？从近年的工业实践看，一个明确方向是<strong>突破标准内积打分，让召回模型逐步复杂化，向粗排甚至精排靠近。</strong>这里的复杂化不是为了追求更大的模型，而是为了提高召回与后续链路在样本、特征和模型目标上的一致性。</p>
+        <p>更具体地，召回迭代要回答两个问题。</p>
+
+        <h3>第一个问题：计算和索引如何协同设计？</h3>
+        <p>所谓计算，关心的是模型的表达能力，用户和物品应该用什么函数打分和交互；所谓索引，关心候选如何被表示、组织和检索。</p>
+        <p>Meta 的 MoL 先用低成本检索器扩大候选窗口，再用 mixture logits 对这批候选做更复杂的交互打分，在有限候选上增强表达力。SilverTorch 则把索引、过滤、缓存和打分放进同一个在线服务图，让复杂模型在更大的候选集合上完成计算，同时减少跨服务请求和数据搬运成本。</p>
+        <p>这类设计的共同点是：召回不再只由一次向量内积完成，而是由“候选生成能力”和“候选级复杂计算能力”共同构成。索引从静态附属结构，变成在线计算图的一部分。</p>
+
+        <h3>第二个问题：召回如何对齐排序目标？</h3>
+        <p>一个思路是端到端地优化索引。如果只按几何距离聚类，索引优化的是向量邻近性或重建误差，而不是推荐中的转化目标。Meta 的 OneShot 把 codebook、item-to-code 分配和排序损失放到同一个训练目标里；百度 UNIQUE 也把反馈信号引入 item code 的学习，并在共享编码器中联合训练召回与排序。这样，索引不再只是训练结束后生成的静态结构，也开始参与召回目标甚至排序目标的优化。</p>
+        <p>另一个思路是联合训练召回和排序，统一特征空间、模型结构和训练目标。百度 <a href="/blog/article/baidu-unique-unified-retrieval-ranking.html">UNIQUE</a>、美团 MTGR、Pinterest UniPinRec、字节 OneTrans-V2 都在不同程度上把候选和用户序列放进同一个 Transformer 的建模过程中：用户历史内部保持因果注意力，候选读取历史与上下文，候选之间通常不可见，从而让同一套用户表示同时服务候选选择和转化预估。这些系统并没有都取消级联，但都在减少阶段之间的表示重复和目标割裂。</p>
+
+        <h3>两条演进路线可以用一张表概括</h3>
+        <table>
+          <thead>
+            <tr><th>方向</th><th>核心变化</th><th>主要收益</th><th>需要付出的代价</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>计算—索引协同</td><td>用复杂打分替代单次内积，或把索引与在线计算合并</td><td>更强交互、更少跨服务开销</td><td>在线算力、候选规模与服务复杂度</td></tr>
+            <tr><td>召回—排序对齐</td><td>索引学习、训练目标和模型结构逐步向下游靠拢</td><td>减少表示重复与目标割裂</td><td>联合训练、数据闭环与工程耦合</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="part-4">Part 4：未来的召回是什么？</h2>
+        <p>未来，成熟的召回系统可能不再是“一个 DSSM”或者“一个复杂模型”一统天下，而是一个多路并存的生态：</p>
+        <ul>
+          <li><strong>DSSM 式双塔召回</strong>继续承担高吞吐、稳定更新的大规模候选生成；</li>
+          <li><strong>复杂模型召回</strong>在有限候选集合上完成更强的用户—候选交互，服务更高价值或更复杂的场景；</li>
+          <li><strong>生成式召回</strong>探索从离散语义空间直接生成候选，并逐步把索引目标和排序反馈纳入训练。</li>
+        </ul>
+        <p>整体上，召回链路会继续向样本、特征、结构和目标与下游对齐的方向发展，而不是单纯用大模型替换内积。</p>
+        <p>所以，突破内积不是否定内积，而是把它放回最合适的位置：<strong>用它承担大规模粗筛，把更复杂的用户—候选交互留给有边界的候选集合。</strong></p>
+        <p>对工业系统而言，更现实的路径通常也不是彻底推翻级联，而是重新划分每一级应该承担的计算：哪些候选需要全库覆盖，哪些候选值得复杂交互，哪些索引应该直接参与目标优化。召回系统的下一次演进，本质上会是计算、索引与目标三者关系的重新设计。</p>
+
+        <h2 id="references">参考论文</h2>
+        <ol>
+          <li>Po-Sen Huang, Xiaodong He, Jianfeng Gao, Li Deng, Alex Acero, Larry Heck. “Learning Deep Structured Semantic Models for Web Search using Clickthrough Data.” CIKM 2013. <a href="https://doi.org/10.1145/2505515.2505541">DOI</a></li>
+          <li>Jiaqi Zhai, et al. “Revisiting Neural Retrieval on Accelerators.” KDD 2023. <a href="https://arxiv.org/abs/2306.04039">arXiv:2306.04039</a></li>
+          <li>Bi Xue, Hong Wu, Lei Chen, et al. “SilverTorch: A Unified Model-based System to Democratize Large-Scale Recommendation on GPUs.” 2025. <a href="https://arxiv.org/abs/2511.14881">arXiv:2511.14881</a></li>
+          <li>Ziwei Li, Shuyao Li, Xufeng Cai, et al. “OneShot: Index-in-Ranking with Neural Scoring for Large-Scale Retrieval.” 2026. <a href="https://arxiv.org/abs/2607.27475">arXiv:2607.27475</a></li>
+          <li>Zhuang Liu, Yongkang Fu, Zuodong Yang, et al. “UNIQUE: A Unified Retrieval and Ranking System for Large-Scale Feed Recommendation.” RecSys 2026. <a href="https://arxiv.org/abs/2609.23718">arXiv:2609.23718</a></li>
+          <li>Ruidong Han, Bin Yin, Shangyu Chen, et al. “MTGR: Industrial-Scale Generative Recommendation Framework in Meituan.” 2025. <a href="https://arxiv.org/abs/2505.18654">arXiv:2505.18654</a></li>
+          <li>Hanyu Li, Yi-Ping Hsu, Aditya Mantha, et al. “UniPinRec: Unifying Generative Retrieval and Ranking at Pinterest Scale.” 2026. <a href="https://arxiv.org/abs/2606.00422">arXiv:2606.00422</a></li>
+          <li>Hannan Cao, Jun Guo, Haolei Pei, et al. “OneTrans-V2: Unifying Retrieval, Pre-rank, and Fine-rank with One Transformer in Industrial Recommender.” 2026. <a href="https://arxiv.org/abs/2609.28589">arXiv:2609.28589</a></li>
+        </ol>
+      </div>
+
+      <div class="article-footer">
+        <a href="/blog/">← 返回博客首页</a>
+        <span>2026-11-22</span>
+      </div>
+    </article>
+  </div>
+
+  <footer class="blog-footer">
+    <div class="inner">
+      <span>© 2026 Donglin Zhou</span>
+      <span>
+        <a href="/">Academic Homepage</a> ·
+        <a href="mailto:2733824402@qq.com">Email</a> ·
+        <a href="https://github.com/donglinzhou">GitHub</a> ·
+        <a href="https://scholar.google.com/citations?user=QD35IOcAAAAJ&hl=zh-CN">Google Scholar</a> ·
+        <a href="https://www.linkedin.com/in/donglin-zhou-92b11521a/">LinkedIn</a>
+      </span>
+    </div>
+  </footer>
+</body>
+</html>
